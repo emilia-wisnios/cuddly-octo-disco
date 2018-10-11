@@ -1,0 +1,136 @@
+#include <stdio.h>
+#include <math.h>
+#include <stdbool.h>
+char symbol=251;
+
+float delta (float a, float b, float c){
+    return (b*b)-(4*a*c);
+}
+
+bool czy_jest_wymierny (float a, float b, float c){
+    int pierwiastek = sqrt(delta(a,b,c));
+    if(pierwiastek * pierwiastek == delta(a,b,c)) return 1;
+    else return 0;
+}
+
+float miejsce_zerowe_funkcji_liniowej (float b, float c){
+    return (-c)/b;
+}
+
+void pierwiastek1 (float a, float b, float c){
+    if (czy_jest_wymierny(a,b,c)){
+        float d=(-b-sqrt(delta(a,b,c)))/2*a;
+        int e=d;
+        printf("%d",e);
+    }
+    else {
+        float d=2*a;
+        int e,f,g;
+        if(czy_jest_calkowita(d)==0 && czy_jest_calkowita(b)==0 && czy_jest_calkowita(delta(a,b,c))==0){
+            e=b;
+            f=delta(a,b,c);
+            g=d;
+            printf("((- %d - (%c %d) )/ %d)",e,symbol,f,g);
+        }
+        else if(czy_jest_calkowita(d)==0 && czy_jest_calkowita(b)==1 && czy_jest_calkowita(delta(a,b,c))==0){
+            f=delta(a,b,c);
+            g=d;
+            printf("((- %f - (%c %d) )/ %d)",b,symbol,f,g);
+            }
+            else if(czy_jest_calkowita(d)==1 && czy_jest_calkowita(b)==0 && czy_jest_calkowita(delta(a,b,c))==0){
+                e=b;
+                f=delta(a,b,c);
+                printf("((- %d - (%c %d) )/ %f)",e,symbol,f,d);
+                }
+                else if(czy_jest_calkowita(d)==0 && czy_jest_calkowita(b)==0 && czy_jest_calkowita(delta(a,b,c))==1){
+                    e=b;
+                    g=d;
+                    printf("((- %d - (%c %f) )/ %d)",e,symbol,delta(a,b,c),g);
+                    }
+                    else if(czy_jest_calkowita(d)==1 && czy_jest_calkowita(b)==1 && czy_jest_calkowita(delta(a,b,c))==0){
+                        f=delta(a,b,c);
+                        printf("((- %f - (%c %d) )/ %f)",b,symbol,f,d);
+                        }
+                        else if(czy_jest_calkowita(d)==1 && czy_jest_calkowita(b)==0 && czy_jest_calkowita(delta(a,b,c))==1){
+                            e=b;
+                            printf("((- %d - (%c %f) )/ %f)",e,symbol,delta(a,b,c),d);
+                        }
+                        else if(czy_jest_calkowita(d)==1 && czy_jest_calkowita(b)==1 && czy_jest_calkowita(delta(a,b,c))==1){
+                            printf("((- %f - (%c %f) )/ %f)",b,symbol,delta(a,b,c),d);
+                        }
+        }
+}
+void pierwiastek2 (float a, float b, float c){
+    if (czy_jest_wymierny(a,b,c)){
+    float d=(-b+sqrt(delta(a,b,c)))/2*a;
+    int e=d;
+    printf("%d",e);
+    }
+    else {
+        float d=2*a;
+        int e,f,g;
+        if(czy_jest_calkowita(d)==0 && czy_jest_calkowita(b)==1 && czy_jest_calkowita(delta(a,b,c))==0){
+            f=delta(a,b,c);
+            g=d;
+            printf("((- %f + (%c %d) )/ %d)",b,symbol,f,g);
+            }
+            else if(czy_jest_calkowita(d)==1 && czy_jest_calkowita(b)==0 && czy_jest_calkowita(delta(a,b,c))==0){
+                e=b;
+                f=delta(a,b,c);
+                printf("((- %d + (%c %d) )/ %f)",e,symbol,f,d);
+                }
+                else if(czy_jest_calkowita(d)==0 && czy_jest_calkowita(b)==0 && czy_jest_calkowita(delta(a,b,c))==1){
+                    e=b;
+                    g=d;
+                    printf("((- %d + (%c %f) )/ %d)",e,symbol,delta(a,b,c),g);
+                    }
+                    else if(czy_jest_calkowita(d)==1 && czy_jest_calkowita(b)==1 && czy_jest_calkowita(delta(a,b,c))==0){
+                        f=delta(a,b,c);
+                        printf("((- %f + (%c %d) )/ %f)",b,symbol,f,d);
+                        }
+                        else if(czy_jest_calkowita(d)==1 && czy_jest_calkowita(b)==0 && czy_jest_calkowita(delta(a,b,c))==1){
+                            e=b;
+                            printf("((- %d + (%c %f) )/ %f)",e,symbol,delta(a,b,c),d);
+                        }
+                        else if(czy_jest_calkowita(d)==1 && czy_jest_calkowita(b)==1 && czy_jest_calkowita(delta(a,b,c))==1){
+                            printf("((- %f + (%c %f) )/ %f)",b,symbol,delta(a,b,c),d);
+                        }
+    }
+}
+
+bool czy_jest_calkowita (float a){
+    return (roundf(a)==a);
+}
+
+int main () {
+    float a,b,c;
+    printf("Ten program znajdzie miejsca zerowe rownania kwadratowego postaci y=a(x^2)+bx+c\n");
+    printf("Podaj wartosc wspolczynnika a: ");
+    scanf("%f", &a);
+    printf("Podaj wartosc wsolczynnika b: ");
+    scanf("%f", &b);
+    printf("Podaj wartosc wspolczynnika c: ");
+    scanf("%f",&c);
+    if (a!=0){
+        if(delta(a,b,c)<0)  printf("Przykro mi, to rownanie kwadratowe nie ma miejsc zerowych");
+        if(delta(a,b,c)==0) {
+            printf("To rownanie kwadratowe ma jedno miejsce zerowe rowne ");
+            pierwiastek1(a,b,c);
+        }
+        if(delta(a,b,c)>0) {
+            printf("To rownanie kwadratowe ma dwa miejsca zerowe rowne ");
+            pierwiastek1(a,b,c);
+            printf(" i ");
+            pierwiastek2(a,b,c);
+        }
+    }
+    else if (a==0) {
+        if(b==0) {
+            if(c==0) printf("To rownanie nie jest rownaniem kwadratowym, ale ma nieskonczenie wiele miejsc zerowych");
+            else printf("To rownanie nie jest rownaniem kwadratowym i nie ma miejsc zerowych");
+        }
+        else printf("To rownanie nie jest rownaniem kwadratowym, ale ma jedno miejsce zerowe rowne %f",miejsce_zerowe_funkcji_liniowej(b,c));
+    }
+    return 0;
+}
+
